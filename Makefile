@@ -1,12 +1,12 @@
-OBJS = sum_array.o
-PROG = test
+OBJS  = sum_array.o
+PROGS = sum_test
 
 all: $(PROG)
 
 %.o : %.s
 	as -o $@ $<
 
-$(PROG): $(PROG).c $(OBJS)
+sum_test: sum_test.c sum_array.o
 	gcc -o $@ $^
 
 .PHONY: clean
