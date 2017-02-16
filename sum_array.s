@@ -12,15 +12,16 @@ sum_array:
     mov r2, $0 // sum = 0
     mov r3, $0 // i = 0
 
-    cmp r3, r1 // i == n
+    cmp r1, $0 // n == 0
     beq end
 
 loop:
-    ldr r4, [r0], $4
+    ldr r4, [r0]
+    add r0, $4
     add r2, r4 // sum += array[i]
-    cmp r3, r1 // i < n
     add r3, $1
-    ble loop
+    cmp r3, r1 // i < n
+    bne loop
 
 end:
     mov r0, r2
