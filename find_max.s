@@ -9,6 +9,7 @@ find_max:
     # r2 : max => int
     # r3 : i (for loop index) => int
     # r4 : value of array[r0]
+    sub sp, sp, #8
     push {r4}
     ldr r4, [r0] /* array[i] = array[0] */
     mov r2, r4  /* max = array[0] */
@@ -29,5 +30,6 @@ loop:
 
 end:
     pop {r4}
+    add sp, sp, #8
     mov r0, r2          /* return max */
     bx lr
