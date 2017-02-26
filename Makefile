@@ -12,6 +12,9 @@ all: $(PROGS)
 sum_test: sum_test.c sum_array.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
+test: $(PROGS)
+	@$(foreach prog,$(PROGS), ./$(prog);)
+
 .PHONY: clean
 clean:
 	rm -f $(OBJS) $(PROGS)
