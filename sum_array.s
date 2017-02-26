@@ -9,6 +9,7 @@ sum_array:
     # r2 : sum => int
     # r3 : i (for loop index) => int
     # r4 : value of array[r0]
+    push {r4}
     mov r2, $0 // sum = 0
     mov r3, $0 // i = 0
 
@@ -25,4 +26,5 @@ loop:
 
 end:
     mov r0, r2
+    pop {r4}
     bx lr
