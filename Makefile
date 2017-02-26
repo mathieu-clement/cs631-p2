@@ -1,3 +1,6 @@
+CFLAGS=-g -std=c99 -Wall -Werror -I.
+LDFLAGS=
+CC=clang
 OBJS  = sum_array.o
 PROGS = sum_test
 
@@ -7,7 +10,7 @@ all: $(PROGS)
 	as -o $@ $<
 
 sum_test: sum_test.c sum_array.o
-	gcc -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: clean
 clean:
