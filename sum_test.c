@@ -5,7 +5,16 @@
 /**
  * Returns sum of array of int
  */
-int sum_array(int *array, int n);
+int sum_array(int* array, int n);
+
+int sum_array_c(int* array, int n)
+{
+    int sum = 0;
+    for (int i = 0 ; i < n ; i++) {
+        sum += array[i];
+    }
+    return sum;
+} // end sum_array_c
 
 /**
  * Returns non zero if assertion is false
@@ -35,21 +44,29 @@ int main (int argc, char* argv[])
 {
     int has_errors = 0;
     int positive_array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    has_errors |= assert_sum(positive_array, size(positive_array,int), 45);
+    int positive_array_n = size(positive_array, int);
+    has_errors |= assert_sum(positive_array, positive_array_n,
+                             sum_array_c(positive_array, positive_array_n));
     
     int negative_array[] = {-1, -2, -3, -4, -5, -6, -7, -8, -9};
-    has_errors |= assert_sum(negative_array, size(negative_array,int), -45);
+    int negative_array_n = size(negative_array, int);
+    has_errors |= assert_sum(negative_array, negative_array_n,
+                             sum_array_c(negative_array, negative_array_n));
     
     int zero_array[] = {0, 0, 0, 0, 0};
-    has_errors |= assert_sum(zero_array, size(zero_array, int), 0);
+    int zero_array_n = size(zero_array, int);
+    has_errors |= assert_sum(zero_array, zero_array_n, 
+                             sum_array_c(zero_array, zero_array_n));
     
     int one_element_array[] = {5};
-    has_errors |= assert_sum(one_element_array, size(one_element_array,int), 5);
+    int one_element_n = size(one_element_array,int);
+    has_errors |= assert_sum(one_element_array, one_element_n, 
+                             sum_array_c(one_element_array, one_element_n));
 
     if (has_errors) {
         fprintf(stderr, "One or more tests failed.\n");
     } else {
-        printf("ALL TESTS PASSED.\N");
+        printf("ALL TESTS PASSED.\n");
     }
 
     return has_errors;
