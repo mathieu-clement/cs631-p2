@@ -13,8 +13,9 @@ fib_rec:
     # r1 : copy of n
     mov r1, r0
     # Preserve r1
-    sub sp, #8      /* "Allocate space on stack for r1, taking care of alignment */
+    sub sp, #16     /* "Allocate space on stack for r1, taking care of alignment */
     str r1, [sp]
+    str lr, [sp, #8]
 
     sub r0, #1      /* n - 1 */
     bl fib_rec      /* fib_rec(n-1) */
@@ -22,24 +23,22 @@ fib_rec:
     # r2 : result of fib_rec(n-1)
     mov r2, r0
     # Restore n from stack */
-    add sp, $8
     ldr r1, [sp]
     # Preserve r2
-    add sp, #4      /* Move sp to position we'll store r2 */
-    str r2, [sp]    /* Store r2 */
-    sub sp, #4      /* Keep sp 8 byte aligned */
+    str r2, [sp, #4]    /* Store r2 */
 
     sub r0, r1, r2  /* n - 2 */
     bl fib_rec      /* fib_rec(n-2) */
 
     # r0 holds   result of fib_rec(n-2)
-    # Bring back result of fib_rec(n-1) to r1
-    add sp, #4
-    ldr r1, [sp]
+    # Bring back result of fib_rec(n-1), in sp+4 to r1
+    ldr r1, [sp, #4]
+    ldr lr, [sp, #8]
+
     # Return sp to original position
-    add sp, #4
+    add sp, #16
 
     # Set return value
-    add r0, r1, r0
+    add r0, r1
     bx lr
 
