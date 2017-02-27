@@ -27,7 +27,7 @@ fib_rec:
     # Preserve r2
     str r2, [sp, #4]    /* Store r2 */
 
-    sub r0, r1, r2  /* n - 2 */
+    sub r0, r1, #2  /* n - 2 */
     bl fib_rec      /* fib_rec(n-2) */
 
     # r0 holds   result of fib_rec(n-2)
