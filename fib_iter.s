@@ -3,6 +3,7 @@
 .func fib_iter
 
 fib_iter:
+    push {r4, r5}
     # r0 : n => int
 
     # Handle special case of n == 0
@@ -31,7 +32,6 @@ fib_iter:
     # r2 : i-1 or i-2
     # r4 : array[i-1] 
     # r5 : array[i-2]
-    push {r4, r5}
 
 loop:
     add r3, #1 /* ++i */
@@ -53,12 +53,11 @@ loop:
     b loop
 
 end:
-    pop {r4, r5}
-
+    # return array[n]
+    ldr r0, [sp, r0, LSL #2]
     # restore stack
     mov r3, #4
     mul r2, r1, r3
     add sp, r2
-    # return array[n]
-    ldr r0, [sp, r0, LSL #2]
+    pop {r4, r5}
     bx lr
