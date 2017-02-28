@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
 #define size(a,t) (sizeof(a) / sizeof(t))
 
 /**
@@ -23,17 +24,15 @@ int assert_sum(int* array, int n)
 {
     int actual = sum_array(array, n);
     int expected = sum_array_c(array, n);
+    printf("sum_array(");
+    print_int_array(array, n);
+    printf(") = %d\n", actual);
+    printf("sum_array_c(");
+    print_int_array(array, n);
+    printf(") = %d\n", expected);
+    printf("\n");
     if (actual != expected) {
-        fprintf(stderr, "sum_array([");
-        if (n > 0) {
-            fprintf(stderr, "%d", array[0]);
-        }
-
-        for (int i = 1 ; i < n ; i++) {
-            fprintf(stderr, ", %d", array[i]);
-        } 
-
-        fprintf(stderr, "]) is equal to %d, expected %d\n",
+        fprintf(stderr, "actual: %d, expected %d\n",
                 actual, expected);
 
         return 1;

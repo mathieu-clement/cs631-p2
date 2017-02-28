@@ -37,7 +37,7 @@ int assert_find_max(int* array, int n)
     puts("\n");
 
     if (actual != expected) {
-        fprintf(stderr, "]) is equal to %d, expected %d\n",
+        fprintf(stderr, "actual: %d, expected %d\n",
                 actual, expected);
 
         return 1;
