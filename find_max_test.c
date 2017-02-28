@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "utils.h"
 #define size(a,t) (sizeof(a) / sizeof(t))
 
 /**
@@ -25,16 +26,17 @@ int assert_find_max(int* array, int n)
 {
     int actual = find_max(array, n);
     int expected = find_max_c(array, n);
+
+    printf("find_max(");
+    print_int_array(array, n);
+    printf("]) = %d\n", actual);
+    
+    printf("find_max_c(");
+    print_int_array(array, n);
+    printf(") = %d\n", expected);
+    puts("\n");
+
     if (actual != expected) {
-        fprintf(stderr, "find_max([");
-        if (n > 0) {
-            fprintf(stderr, "%d", array[0]);
-        }
-
-        for (int i = 1 ; i < n ; i++) {
-            fprintf(stderr, ", %d", array[i]);
-        } 
-
         fprintf(stderr, "]) is equal to %d, expected %d\n",
                 actual, expected);
 
