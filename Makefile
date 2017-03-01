@@ -1,4 +1,4 @@
-CFLAGS=-g -std=c99 -O2 -Wall -Werror -I.
+CFLAGS=-g -std=c99 -O0 -Wall -Werror -I.
 LDFLAGS=
 CC=clang
 OBJS  = sum_array.o find_max.o fib_rec.o fib_rec.o find_str.o
