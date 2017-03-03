@@ -41,8 +41,9 @@ int find_str_c(char *s, char *sub)
 int find_str_c_stdlib(char *s, char *sub)
 {
     char *result = strstr(s, sub);
+    if (result == NULL) return -1;
     int pos = result - s;
-    return max(pos, -1);
+    return pos;
 }
 
 /*
@@ -82,6 +83,10 @@ int main (int argc, char* argv[])
     fail |= check(abcde, abcde_copy);
     fail |= check("abcde", "bcd");
     fail |= check("abcde", "cde");
+    fail |= check("Time flies like an arrow", "Time");
+    fail |= check("Time flies like an arrow", "flies");
+    fail |= check("Time flies like an arrow", "arrow");
+    fail |= check("Time flies like an arrow", "w");
 
     // NOT contains
 
