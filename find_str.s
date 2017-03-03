@@ -47,9 +47,9 @@ try_next_start:
 
 try_expanding:
     ldrb r1, [r6, r3] /* s[i] */
+    ldrb r2, [r7, r5] /* sub[len] */
     cmp r1, #0 /* if s[i] == 0 */
     beq end_try_next_start
-    ldrb r2, [r7, r5] /* sub[len] */
     cmp r2, #0 /* if sub[len] == 0 */
     beq end_try_next_start
     cmp r1, r2 /* s[i] ==? sub[len] */
