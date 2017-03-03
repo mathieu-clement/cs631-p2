@@ -45,41 +45,54 @@ int find_str_c_stdlib(char *s, char *sub)
     return max(pos, -1);
 }
 
-void check(char* s, char* sub)
+/*
+ * Check find_str with three different implementations.
+ * Returns non zero if NOT all implementations return the same result.
+ */
+int check(char* s, char* sub)
 {
-//    printf("find_str(\"%s\", \"%s\") = %d\n", s, sub, find_str(s, sub));
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", s, sub, find_str_c(s, sub));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", s, sub, find_str_c_stdlib(s, sub));
+    int asm_result = find_str(s, sub);
+    printf("find_str(\"%s\", \"%s\") = %d\n", s, sub, asm_result);
+    int my_c_impl_result = find_str_c(s, sub);
+    printf("find_str_c(\"%s\", \"%s\") = %d\n", s, sub, my_c_impl_result);
+    int stdlib_ref_result = find_str_c_stdlib(s, sub);
+    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", s, sub, stdlib_ref_result);    
     printf("\n");    
+
+    if (asm_result == my_c_impl_result && my_c_impl_result == stdlib_ref_result) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 int main (int argc, char* argv[])
 {
+    int fail = 0;
+
     // Contains
 
-    check("abcde", "a");
-
-    check("abcde", "abc");
-
-    check("abcde", "abcde");
-
-    check("abcde", "bcd");
-
-    check("abcde", "cde");
+    fail |= check("abcde", "a");
+    fail |= check("abcde", "abc");
+    fail |= check("abcde", "abcde");
+    fail |= check("abcde", "bcd");
+    fail |= check("abcde", "cde");
 
     // NOT contains
 
-    check("abcde", "xyz");
+    fail |= check("abcde", "xyz");
+    fail |= check("abcde", "bcq");
+    fail |= check("abcde", "def");
+    fail |= check("abcde", "defhijklmn");
+    fail |= check("abcdef", "abcdef");
 
-    check("abcde", "bcq");
+    if (!fail) {
+        printf("All tests passed.\n");
+    } else {
+        printf("One or more tests failed.\n");
+    }
 
-    check("abcde", "def");
-
-    check("abcde", "defhijklmn");
-
-    check("abcdef", "abcdef");
-
-
+    return fail;
 }
 
 
