@@ -74,7 +74,12 @@ int main (int argc, char* argv[])
 
     fail |= check("abcde", "a");
     fail |= check("abcde", "abc");
-    fail |= check("abcde", "abcde");
+    // C compiler stores identical litterals at the same memory location
+    // We have to explicitely copy the string to avoid that
+    char* abcde = "abcde";
+    char* abcde_copy = malloc(strlen("abcde")+1);
+    strcpy(abcde_copy, abcde);
+    fail |= check(abcde, abcde_copy);
     fail |= check("abcde", "bcd");
     fail |= check("abcde", "cde");
 

@@ -15,8 +15,8 @@ find_str:
 
     push {r4, r5, r6, r7, r8, lr}
 
-    mov r6, r0
-    mov r7, r1
+    mov r6, r0 /* backup s */
+    mov r7, r1 /* backup sub */
 
     mov r0, #0 /* start = 0 */
     ldrb r2, [r7] /* sub[0] */
@@ -24,17 +24,16 @@ find_str:
 find_start:
     ldrb r1, [r6, r0] /* s[start] */
     cmp r1, #0 /* s[start] ==? 0 */
-    bne check_reached_end_of_s /* exit while */
+    beq check_reached_end_of_s /* exit while */
     cmp r1, r2 /* sub[0] ==? s[start]  */
-    bne check_reached_end_of_s /* exit while */
+    beq check_reached_end_of_s /* exit while */
 
     add r0, r0, #1 /* start++ */
     b find_start
 
 check_reached_end_of_s:
-    ldrb r1, [r6, r0] /* s[start] */
     cmp r1, #0 /* s[start] ==? 0 */
-    b no_match
+    beq no_match
 
 # program continues normally
     mov r5, #0 /* len = 0 */
@@ -62,9 +61,9 @@ try_expanding:
 
 end_try_next_start:
     cmp r2, #0
-    beq try_next_start
+    beq end
     addne  r0, #1
-    bne end 
+    bne try_next_start
 
 no_match:
     mov r0, #-1
