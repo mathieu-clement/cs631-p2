@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utils.h"
 
 int find_str(char *s, char *sub);
 
@@ -46,44 +47,42 @@ int find_str_c_stdlib(char *s, char *sub)
 {
     char *result = strstr(s, sub);
     int pos = result - s;
-    return pos;
+    return max(pos, -1);
+}
+
+void check(char* s, char* sub)
+{
+    printf("find_str(\"%s\", \"%s\") = %d\n", s, sub, find_str(s, sub));
+    printf("find_str_c(\"%s\", \"%s\") = %d\n", s, sub, find_str_c(s, sub));
+    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", s, sub, find_str_c_stdlib(s, sub));
+    printf("\n");    
 }
 
 int main (int argc, char* argv[])
 {
     // Contains
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "a", find_str_c("abcde", "a"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "a", find_str_c_stdlib("abcde", "a"));
+    check("abcde", "a");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "abc", find_str_c("abcde", "abc"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "abc", find_str_c_stdlib("abcde", "abc"));
+    check("abcde", "abc");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "abcde", find_str_c("abcde", "abcde"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "abcde", find_str_c_stdlib("abcde", "abcde"));
+    check("abcde", "abcde");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "bcd", find_str_c("abcde", "bcd"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "bcd", find_str_c_stdlib("abcde", "bcd"));
+    check("abcde", "bcd");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "cde", find_str_c("abcde", "cde"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "cde", find_str_c_stdlib("abcde", "cde"));
+    check("abcde", "cde");
 
     // NOT contains
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "xyz", find_str_c("abcde", "xyz"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "xyz", find_str_c_stdlib("abcde", "xyz"));
+    check("abcde", "xyz");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "bcq", find_str_c("abcde", "bcq"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "bcq", find_str_c_stdlib("abcde", "bcq"));
+    check("abcde", "bcq");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "def", find_str_c("abcde", "def"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "def", find_str_c_stdlib("abcde", "def"));
+    check("abcde", "def");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "defhijlklmn", find_str_c("abcde", "defhijklmn"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "defhijlklmn", find_str_c_stdlib("abcde", "defhijklmn"));
+    check("abcde", "defhijklmn");
 
-    printf("find_str_c(\"%s\", \"%s\") = %d\n", "abcde", "abcdef", find_str_c("abcdef", "abcdef"));
-    printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", "abcde", "abcdef", find_str_c_stdlib("abcdef", "abcdef"));
+    check("abcdef", "abcdef");
 
 
 }
