@@ -63,6 +63,7 @@ int check(char* s, char* sub)
     if (asm_result == my_c_impl_result && my_c_impl_result == stdlib_ref_result) {
         return 0;
     } else {
+        fprintf(stderr, "TEST FAILED.\n\n");
         return 1;
     }
 }
@@ -85,6 +86,7 @@ int main (int argc, char* argv[])
     fail |= check("abcde", "cde");
     fail |= check("Time flies like an arrow", "Time");
     fail |= check("Time flies like an arrow", "flies");
+    fail |= check("abcde cdefg", "cdefg");
     fail |= check("Time flies like an arrow", "arrow");
     fail |= check("Time flies like an arrow", "w");
 
