@@ -22,13 +22,8 @@ int find_str_c(char *s, char *sub)
     while (s[start] != 0) {
         int i;
 
-        for (i = start ; s[i] != 0 && sub[len] != 0 ; i++) {
-            if (s[i] == sub[len]) {
-                len++;
-            } else {
-                break;
-            }
-        }
+        for (i = start ; s[i] != 0 && sub[len] != 0 && s[i] == sub[len]; i++, len++);
+        
 
         if (sub[len] != 0) {
             start++;
@@ -52,7 +47,7 @@ int find_str_c_stdlib(char *s, char *sub)
 
 void check(char* s, char* sub)
 {
-    printf("find_str(\"%s\", \"%s\") = %d\n", s, sub, find_str(s, sub));
+//    printf("find_str(\"%s\", \"%s\") = %d\n", s, sub, find_str(s, sub));
     printf("find_str_c(\"%s\", \"%s\") = %d\n", s, sub, find_str_c(s, sub));
     printf("find_str_c_stdlib(\"%s\", \"%s\") = %d\n", s, sub, find_str_c_stdlib(s, sub));
     printf("\n");    
