@@ -89,7 +89,7 @@ int main (int argc, char* argv[])
     if (!fail) {
         printf("All tests passed.\n");
     } else {
-        printf("One or more tests failed.\n");
+        fprintf(stderr, "One or more tests failed.\n");
     }
 
     return fail;
