@@ -2,6 +2,7 @@
 .global fib_iter
 .func fib_iter
 
+# int fib_iter (int n)
 fib_iter:
     push {r4, r5}
     # r0 : n => int

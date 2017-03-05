@@ -4,6 +4,7 @@
 
 # int fib_rec (int n)
 fib_rec:
+    /* This code manipulates sp directly. */
     # r0 : n => int
     cmp r0, #0      /* if n == 0 */
     bxeq lr         /*     return 0 */
@@ -13,7 +14,7 @@ fib_rec:
     # r1 : copy of n
     mov r1, r0
     # Preserve r1
-    sub sp, #16     /* "Allocate space on stack for r1, taking care of alignment */
+    sub sp, #16     /* Allocate space on stack for r1, taking care of alignment */
     str r1, [sp]
     str lr, [sp, #8]
 
