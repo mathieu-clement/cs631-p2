@@ -36,9 +36,9 @@ check_reached_end_of_s:
     beq no_match
 
 # program continues normally
-    mov r5, #0 /* len = 0 */
 
 try_next_start:
+    mov r5, #0 /* len = 0 */
     ldrb r1, [r6, r0] /* s[start] */
     cmp r1, #0 /* reached end of s? */
     beq no_match

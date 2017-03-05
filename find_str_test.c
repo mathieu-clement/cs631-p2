@@ -17,10 +17,9 @@ int find_str_c(char *s, char *sub)
         return -1;
     }
 
-    int len = 0;
-
     while (s[start] != 0) {
         int i;
+        int len = 0;
 
         for (i = start ; s[i] != 0 && sub[len] != 0 && s[i] == sub[len]; i++, len++);
         
