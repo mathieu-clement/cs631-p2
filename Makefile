@@ -29,7 +29,7 @@ find_str_test: find_str_test.c find_str.o $(DEPS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 test: $(PROGS)
-	@$(foreach prog,$(PROGS), echo ; echo "##### $(prog) ######"; ./$(prog);)
+	@$(foreach prog,$(PROGS), echo ; echo "\033[032m##### $(prog) ######"; echo "\033[0m" ; ./$(prog);)
 
 .PHONY: clean
 clean:
